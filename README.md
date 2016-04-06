@@ -106,7 +106,7 @@ SELECT * FROM test2;
 
 ```
 Also temporary dump file is created for analysis (by default there are no files created)
-User `-s, --create_data_dump` to dump streamed data.
+Use `-s, --create_data_dump` to dump streamed data.
 
 If target bucket does not exists it will be created in user controlled region.
 Use argument `-t, --s3_location` to set target region name
@@ -155,55 +155,43 @@ Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/pythonuploadtest1/o
 #   
 #FAQ
 #  
-#### Can it load CSV file from Windows desktop to Amazon Redshift.
+#### Can it load Oracle data to Amazon S3 file?
 Yes, it is the main purpose of this tool.
 
-#### Can developers integrate CSV loader into their ETL pipelines?
+#### Can developers integrate `Oracle_To_S3_Data_Uploader` into their ETL pipelines?
 Yes. Assuming they are doing it on OS Windows.
 
 #### How fast is data upload using `CSV Loader for Redshift`?
-As fast as any AWS API provided by Amazon.
+As fast as any implementation of multi-part load using Python and boto.
 
 ####How to inscease upload speed?
-Compress input file or provide `-z` or `--gzip_source_file` arg in command line and this tool will compress it for you before upload to S3.
+Input data stream is getting compressed before upload to S3. So not much could be done here.
+You may want to run it closer to source or target for better performance.
 
-#### What are the other ways to upload file to Redshift?
-You can use 'aws s3api' and psql COPY command to do pretty much the same.
+#### What are the other ways to move large amounts of data from Oracle to S3?
+You can write a sqoop script that can be scheduled as an 'EMR Activity' under Data Pipeline.
 
-#### Can I just zip it using Windows File Explorer?
-No, Redshift will not recognize *.zip file format.
-You have to `gzip` it. You can use 7-Zip to do that.
-
-
-#### Does it delete file from S3 after upload?
+#### Does it create temporary data file to facilitate data load to S3?
 No
 
-#### Does it create target Redshift table?
-No
+#### Can I log transfered data for analysis?
+Yes, Use `-s, --create_data_dump` to dump streamed data.
 
 #### Is there an option to compress input CSV file before upload?
 Yes. Use `-z` or `--gzip_source_file` argument so the tool does compression for you.
 
 
-#### Explain first step of data load?
-The CSV you provided is getting preloaded to Amazon-S3.
-It doesn't have to be made public for load to Redshift. 
-It can be compressed or uncompressed.
-Your input file is getting compressed (optional) and uploaded to S3 using credentials you set in shell.
+#### Explain first step of data transfer?
+The query file you provided is used to select data form target Oracle server.
+Stream is compressed before load to S3.
 
-
-#### Explain second step of data load. How data is loaded to Amazon Redshift?
-You Redshift cluster has to be open to the world (accessible via port 5439 from internet).
-It uses PostgreSQL COPY command to load file located on S3 into Redshift table.
-
-
-#### Can I use WinZip or 7-zip
-Yes, but you have to use 'gzip' compression type.
+#### Explain second step of data transfer?
+Compressed data is getting uploaded to S3 using multipart upload.
 
 #### What technology was used to create this tool
-I used Python, Boto, and psycopg2 to write it.
+I used SQL*Plus, Python, Boto to write it.
 Boto is used to upload file to S3. 
-psycopg2 is used to establish ODBC connection with Redshift clusted and execute `COPY` command.
+SQL*Plus is used to spool data to compressor pipe.
 
 #### Where are the sources?
 Please, contact me for sources.
@@ -212,6 +200,7 @@ Please, contact me for sources.
 Yes, please, ask me for new features.
 
 #### What other AWS tools you've created?
+- [CSV_Loader_For_Redshift] (https://github.com/alexbuz/CSV_Loader_For_Redshift/blob/master/README.md) - Append CSV data to Amazon-Redshift from Windows.
 - [S3_Sanity_Check] (https://github.com/alexbuz/S3_Sanity_Check/blob/master/README.md) - let's you `ping` Amazon-S3 bucket to see if it's publicly readable.
 - [EC2_Metrics_Plotter](https://github.com/alexbuz/EC2_Metrics_Plotter/blob/master/README.md) - plots any CloudWatch EC2 instance  metric stats.
 - [S3_File_Uploader](https://github.com/alexbuz/S3_File_Uploader/blob/master/README.md) - uploads file from Windows to S3.
