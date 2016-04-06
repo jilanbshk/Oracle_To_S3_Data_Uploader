@@ -142,8 +142,8 @@ Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/pythonuploadtest1/o
 
 
 ###Download
-* `git clone https://github.com/alexbuz/CSV_Loader_For_Redshift`
-* [Master Release](https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/archive/master.zip) -- `csv_loader_for_redshift 0.1.0`
+* `git clone https://github.com/alexbuz/Oracle_To_S3_Data_Uploader`
+* [Master Release](https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/archive/master.zip) -- `oracle_to_s3_uploader 1.2`
 
 
 
