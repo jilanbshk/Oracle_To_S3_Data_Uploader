@@ -32,9 +32,9 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a id="oracle-to-s3-table-data-uploader" class="anchor" href="#oracle-to-s3-table-data-uploader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Oracle-to-S3 table data uploader.</h1>
+<a id="oracle-to-s3-data-uploader" class="anchor" href="#oracle-to-s3-data-uploader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Oracle-to-S3 data uploader.</h1>
 
-<p>Let's you stream your Oracle table data to Amazon-S3 from Windows CLI (command line).</p>
+<p>Let's you stream your Oracle table/query data to Amazon-S3 from Windows CLI (command line).</p>
 
 <p>Features:</p>
 
@@ -189,7 +189,7 @@ Use argument <code>-t, --s3_location</code> to set target region name</p>
     -q table_query.sql ^
     -d "|" ^
     -e ^
-    -b pythonuploadtest1 ^
+    -b test_bucket ^
     -k oracle_table_export ^
     -r ^
     -p ^
@@ -198,15 +198,15 @@ Use argument <code>-t, --s3_location</code> to set target region name</p>
 
 <p>Executing <code>test.bat</code>:</p>
 
-<pre><code>c:\Python35-32\PROJECTS\Ora2S3&gt;dist\oracle_to_s3_uploader.exe   -q table_query.sql      -d "|"  -e      -b pythonuploadtest1       -k oracle_table_export  -r      -p      -s
-Uploading results of "table_query.sql" to existing bucket "pythonuploadtest1"
-Dumping data to: c:\Python35-32\PROJECTS\Ora2S3\data_dump\table_query\pythonuploadtest1\oracle_table_export.20160405_235310.gz
+<pre><code>c:\Python35-32\PROJECTS\Ora2S3&gt;dist\oracle_to_s3_uploader.exe   -q table_query.sql      -d "|"  -e      -b test_bucket       -k oracle_table_export  -r      -p      -s
+Uploading results of "table_query.sql" to existing bucket "test_bucket"
+Dumping data to: c:\Python35-32\PROJECTS\Ora2S3\data_dump\table_query\test_bucket\oracle_table_export.20160405_235310.gz
 1 chunk 10.0 GB [8.95 sec]
 2 chunk 5.94 GB [5.37 sec]
 Uncompressed data size: 15.94 GB
 Compressed data size: 63.39 MB
 Upload complete (17.58 sec).
-Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/pythonuploadtest1/oracle_table_export.gz
+Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_table_export.gz
 </code></pre>
 
 <h4>
@@ -216,9 +216,9 @@ Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/pythonuploadtest1/o
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h3>
 
 <ul>
-<li><code>git clone https://github.com/alexbuz/CSV_Loader_For_Redshift</code></li>
+<li><code>git clone https://github.com/alexbuz/Oracle_To_S3_Data_Uploader</code></li>
 <li>
-<a href="https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/archive/master.zip">Master Release</a> -- <code>csv_loader_for_redshift 0.1.0</code>
+<a href="https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/archive/master.zip">Master Release</a> -- <code>oracle_to_s3_uploader 1.2</code>
 </li>
 </ul>
 
@@ -262,11 +262,6 @@ You may want to run it closer to source or target for better performance.</p>
 <p>Yes, Use <code>-s, --create_data_dump</code> to dump streamed data.</p>
 
 <h4>
-<a id="is-there-an-option-to-compress-input-csv-file-before-upload" class="anchor" href="#is-there-an-option-to-compress-input-csv-file-before-upload" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Is there an option to compress input CSV file before upload?</h4>
-
-<p>Yes. Use <code>-z</code> or <code>--gzip_source_file</code> argument so the tool does compression for you.</p>
-
-<h4>
 <a id="explain-first-step-of-data-transfer" class="anchor" href="#explain-first-step-of-data-transfer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explain first step of data transfer?</h4>
 
 <p>The query file you provided is used to select data form target Oracle server.
@@ -275,7 +270,7 @@ Stream is compressed before load to S3.</p>
 <h4>
 <a id="explain-second-step-of-data-transfer" class="anchor" href="#explain-second-step-of-data-transfer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explain second step of data transfer?</h4>
 
-<p>Compressed data is getting uploaded to S3 using multipart upload.</p>
+<p>Compressed data is getting uploaded to S3 using multipart upload protocol.</p>
 
 <h4>
 <a id="what-technology-was-used-to-create-this-tool" class="anchor" href="#what-technology-was-used-to-create-this-tool" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What technology was used to create this tool</h4>
