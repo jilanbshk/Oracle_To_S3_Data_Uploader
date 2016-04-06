@@ -177,16 +177,12 @@ No
 #### Can I log transfered data for analysis?
 Yes, Use `-s, --create_data_dump` to dump streamed data.
 
-#### Is there an option to compress input CSV file before upload?
-Yes. Use `-z` or `--gzip_source_file` argument so the tool does compression for you.
-
-
 #### Explain first step of data transfer?
 The query file you provided is used to select data form target Oracle server.
 Stream is compressed before load to S3.
 
 #### Explain second step of data transfer?
-Compressed data is getting uploaded to S3 using multipart upload.
+Compressed data is getting uploaded to S3 using multipart upload protocol.
 
 #### What technology was used to create this tool
 I used SQL*Plus, Python, Boto to write it.
