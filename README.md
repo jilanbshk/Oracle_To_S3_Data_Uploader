@@ -117,7 +117,7 @@ dist\oracle_to_s3_uploader.exe ^
 	-q table_query.sql ^
 	-d "|" ^
 	-e ^
-	-b pythonuploadtest1 ^
+	-b test_bucket ^
 	-k oracle_table_export ^
 	-r ^
 	-p ^
@@ -126,15 +126,15 @@ dist\oracle_to_s3_uploader.exe ^
 Executing `test.bat`:
 
 ```
-c:\Python35-32\PROJECTS\Ora2S3>dist\oracle_to_s3_uploader.exe   -q table_query.sql      -d "|"  -e      -b pythonuploadtest1       -k oracle_table_export  -r      -p      -s
-Uploading results of "table_query.sql" to existing bucket "pythonuploadtest1"
-Dumping data to: c:\Python35-32\PROJECTS\Ora2S3\data_dump\table_query\pythonuploadtest1\oracle_table_export.20160405_235310.gz
+c:\Python35-32\PROJECTS\Ora2S3>dist\oracle_to_s3_uploader.exe   -q table_query.sql      -d "|"  -e      -b test_bucket       -k oracle_table_export  -r      -p      -s
+Uploading results of "table_query.sql" to existing bucket "test_bucket"
+Dumping data to: c:\Python35-32\PROJECTS\Ora2S3\data_dump\table_query\test_bucket\oracle_table_export.20160405_235310.gz
 1 chunk 10.0 GB [8.95 sec]
 2 chunk 5.94 GB [5.37 sec]
 Uncompressed data size: 15.94 GB
 Compressed data size: 63.39 MB
 Upload complete (17.58 sec).
-Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/pythonuploadtest1/oracle_table_export.gz
+Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_table_export.gz
 ```
 
 ####Test query
