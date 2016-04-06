@@ -1,0 +1,1 @@
+SELECT * FROM test2 WHERE rownum<100000
