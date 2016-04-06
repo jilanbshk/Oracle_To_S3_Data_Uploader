@@ -97,8 +97,18 @@ set ORACLE_CLIENT_HOME=C:\\app\\oracle12\\product\\12.1.0\\dbhome_1
 ```
 
 ### Test upload with data dump.
+In this example complete table `test2` get's uploaded to Aamzon-S3 as compressed CSV file.
 
+Contents of the file *table_query.sql*:
 
+```
+SELECT * FROM test2;
+
+```
+Also temporary dump file is created for analysis (by default there are no files created)
+
+If target bucket does not exists it will be created in user controlled region.
+Use argument `-t, --s3_location` to set target region name
 
 ```
 set AWS_ACCESS_KEY_ID=<you access key>
@@ -120,12 +130,7 @@ Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_
 
 ####Test query
 
-Contents of the file *table_query.sql*:
 
-```
-SELECT * FROM test2 WHERE rownum<100000;
-
-```
 
 ###Download
 * `git clone https://github.com/alexbuz/CSV_Loader_For_Redshift`
