@@ -18,7 +18,7 @@ Features:
 
 OS|Platform|Version 
 ---|---|---- | -------------
-Windows|32bit|[0.1.0 beta]
+Windows|64bit|[1.2 beta]
 
 ##Purpose
 
