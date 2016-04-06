@@ -86,8 +86,8 @@ Usage:
 
 ###Environment variables
 
-* Set the following environment variables (for all tests:
-
+* Set the following environment variables (for all tests):
+set_env.bat:
 ```
 set AWS_ACCESS_KEY_ID=<you access key>
 set AWS_SECRET_ACCESS_KEY=<you secret key>
@@ -106,26 +106,35 @@ SELECT * FROM test2;
 
 ```
 Also temporary dump file is created for analysis (by default there are no files created)
+User `-s, --create_data_dump` to dump streamed data.
 
 If target bucket does not exists it will be created in user controlled region.
 Use argument `-t, --s3_location` to set target region name
 
+Contents of the file *test.bat*:
 ```
-set AWS_ACCESS_KEY_ID=<you access key>
-set AWS_SECRET_ACCESS_KEY=<you secret key>
+dist\oracle_to_s3_uploader.exe ^
+	-q table_query.sql ^
+	-d "|" ^
+	-e ^
+	-b pythonuploadtest1 ^
+	-k oracle_table_export ^
+	-r ^
+	-p ^
+	-s
+```
+Executing `test.bat`:
 
-set ORACLE_LOGIN=tiger/scott@orcl
-set ORACLE_CLIENT_HOME=C:\\app\\oracle12\\product\\12.1.0\\dbhome_1
-
-c:\Python35-32\PROJECTS\Ora2S3>dist\oracle_to_s3_uploader.exe -q table_query.sql -d "|" -e -b test_bucket -k oracle_table_export -r -p  -s
-Uploading results of "table_query.sql" to bucket: test_bucket
-Dumping data to: c:\Python35-32\PROJECTS\Ora2S3\data_dump\table_query\test_bucket\oracle_table_export.20160405_233607.gz
-1 chunk 10.0 GB [9.0 sec]
+```
+c:\Python35-32\PROJECTS\Ora2S3>dist\oracle_to_s3_uploader.exe   -q table_query.sql      -d "|"  -e      -b pythonuploadtest1       -k oracle_table_export  -r      -p      -s
+Uploading results of "table_query.sql" to existing bucket "pythonuploadtest1"
+Dumping data to: c:\Python35-32\PROJECTS\Ora2S3\data_dump\table_query\pythonuploadtest1\oracle_table_export.20160405_235310.gz
+1 chunk 10.0 GB [8.95 sec]
 2 chunk 5.94 GB [5.37 sec]
 Uncompressed data size: 15.94 GB
 Compressed data size: 63.39 MB
-Upload complete (17.45 sec).
-Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_table_export.gz
+Upload complete (17.58 sec).
+Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/pythonuploadtest1/oracle_table_export.gz
 ```
 
 ####Test query
