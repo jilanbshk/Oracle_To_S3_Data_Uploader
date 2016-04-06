@@ -1,4 +1,4 @@
-# Oracle table data uploader to Amazon-S3.
+# Oracle-to-S3 table data uploader.
 Let's you stream your Oracle table data to Amazon-S3 from Windows command line.
 
 
@@ -116,7 +116,16 @@ Uncompressed data size: 15.94 GB
 Compressed data size: 63.39 MB
 Upload complete (17.45 sec).
 Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_table_export.gz
+```
 
+####Test query
+
+Contents of the file *table_query.sql*:
+
+```
+SELECT * FROM test2 WHERE rownum<100000;
+
+```
 
 ###Download
 * `git clone https://github.com/alexbuz/CSV_Loader_For_Redshift`
