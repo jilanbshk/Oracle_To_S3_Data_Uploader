@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Oracle to s3 data uploader : Data streamer from Oracle to Amazon-S3">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Oracle to s3 data uploader</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/alexbuz/Oracle_To_S3_Data_Uploader">View on GitHub</a>
+
+          <h1 id="project_title">Oracle to s3 data uploader</h1>
+          <h2 id="project_tagline">Data streamer from Oracle to Amazon-S3</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="oracle-to-s3-table-data-uploader" class="anchor" href="#oracle-to-s3-table-data-uploader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Oracle-to-S3 table data uploader.</h1>
+
+<p>Let's you stream your Oracle table data to Amazon-S3 from Windows CLI (command line).</p>
+
+<p>Features:</p>
+
+<ul>
+<li>Streams Oracle table data to Amazon-S3.</li>
+<li>No need to create CSV extracts before upload to S3.</li>
+<li>Data stream is compressed while upload to S3.</li>
+<li>No need for Amazon AWS CLI.</li>
+<li>Works from your OS Windows desktop (command line).</li>
+<li>It's executable (Oracle_To_S3_Uploader.exe)  - no need for Python install.</li>
+<li>It's 64 bit - it will work on any vanilla DOS for 64-bit Windows.</li>
+<li>AWS Access Keys are not passed as arguments. </li>
+<li>Written using Python/boto/PyInstaller.</li>
+</ul>
+
+<h2>
+<a id="version" class="anchor" href="#version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version</h2>
+
+<table>
+<thead>
+<tr>
+<th>OS</th>
+<th>Platform</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td>64bit</td>
+<td>[1.2 beta]</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="purpose" class="anchor" href="#purpose" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Purpose</h2>
+
+<ul>
+<li>Stream (upload) Oracle table data to Amazon-S3.</li>
+</ul>
+
+<h2>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How it works</h2>
+
+<ul>
+<li>Tool connects to source Oracle DB and opens data pipe for reading.</li>
+<li>Data is pumped to S3 using multipart upload.</li>
+<li>Optional upload to Reduced Redundancy storage (not RR by default).</li>
+<li>Optional "make it public" after upload (private by default)</li>
+<li>If doesn't, bucket is created</li>
+<li>You can control the region where new bucket is created</li>
+<li>Streamed data can be tee'd (dumped on disk) during upload.</li>
+<li>If not set, S3 Key defaulted to query file name.</li>
+<li>It's a Python/boto script
+
+<ul>
+<li>Boto S3 docs: <a href="http://boto.cloudhackers.com/en/latest/ref/s3.html">http://boto.cloudhackers.com/en/latest/ref/s3.html</a>
+</li>
+</ul>
+</li>
+<li>Executable is created using <a href="http://www.pyinstaller.org/">pyInstaller</a>
+</li>
+</ul>
+
+<h2>
+<a id="audience" class="anchor" href="#audience" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Audience</h2>
+
+<p>Database/ETL developers, Data Integrators, Data Engineers, Business Analysts, AWS Developers, DevOps, </p>
+
+<h2>
+<a id="designated-environment" class="anchor" href="#designated-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designated Environment</h2>
+
+<p>Pre-Prod (UAT/QA/DEV)</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>c:\Python35-32\PROJECTS\Ora2S3&gt;dist\oracle_to_s3_uploader.exe
+#############################################################################
+#Oracle to S3 Data Uploader (v1.2, beta, 04/05/2016 15:11:53) [64bit]
+#Copyright (c): 2016 Alex Buzunov, All rights reserved.
+#Agreement: Use this tool at your own risk. Author is not liable for any damages
+#           or losses related to the use of this software.
+################################################################################
+Usage:
+  set AWS_ACCESS_KEY_ID=&lt;you access key&gt;
+  set AWS_SECRET_ACCESS_KEY=&lt;you secret key&gt;
+  set ORACLE_LOGIN=tiger/scott@orcl
+  set ORACLE_CLIENT_HOME=C:\app\oracle12\product\12.1.0\dbhome_1
+
+  oracle_to_s3_uploader.exe [&lt;ora_query_file&gt;] [&lt;ora_col_delim&gt;] [&lt;ora_add_header&gt;]
+                            [&lt;s3_bucket_name&gt;] [&lt;s3_key_name&gt;] [&lt;s3_use_rr&gt;] [&lt;s3_public&gt;]
+
+        --ora_query_file -- SQL query to execure in source Oracle db.
+        --ora_col_delim  -- CSV column delimiter (|).
+        --ora_add_header -- Add header line to CSV file (False).
+        --ora_lame_duck  -- Limit rows for trial upload (1000).
+        --create_data_dump -- Use it if you want to persist streamed data on your filesystem.
+
+        --s3_bucket_name -- S3 bucket name (always set it).
+        --s3_location    -- New bucket location name (us-west-2)
+                                Set it if you are creating new bucket
+        --s3_key_name    -- CSV file name (to store query results on S3).
+                if &lt;s3_key_name&gt; is not specified, the oracle query filename (ora_query_file) will be used.
+        --s3_use_rr -- Use reduced redundancy storage (False).
+        --s3_write_chunk_size -- Chunk size for multipart upoad to S3 (10&lt;&lt;21, ~20MB).
+        --s3_public -- Make uploaded file public (False).
+
+        Oracle data uploaded to S3 is always compressed (gzip).
+
+</code></pre>
+
+<h1>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h1>
+
+<h3>
+<a id="environment-variables" class="anchor" href="#environment-variables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Environment variables</h3>
+
+<ul>
+<li>Set the following environment variables (for all tests):
+set_env.bat:</li>
+</ul>
+
+<pre><code>set AWS_ACCESS_KEY_ID=&lt;you access key&gt;
+set AWS_SECRET_ACCESS_KEY=&lt;you secret key&gt;
+
+set ORACLE_LOGIN=tiger/scott@orcl
+set ORACLE_CLIENT_HOME=C:\\app\\oracle12\\product\\12.1.0\\dbhome_1
+</code></pre>
+
+<h3>
+<a id="test-upload-with-data-dump" class="anchor" href="#test-upload-with-data-dump" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test upload with data dump.</h3>
+
+<p>In this example complete table <code>test2</code> get's uploaded to Aamzon-S3 as compressed CSV file.</p>
+
+<p>Contents of the file <em>table_query.sql</em>:</p>
+
+<pre><code>SELECT * FROM test2;
+
+</code></pre>
+
+<p>Also temporary dump file is created for analysis (by default there are no files created)
+Use <code>-s, --create_data_dump</code> to dump streamed data.</p>
+
+<p>If target bucket does not exists it will be created in user controlled region.
+Use argument <code>-t, --s3_location</code> to set target region name</p>
+
+<p>Contents of the file <em>test.bat</em>:</p>
+
+<pre><code>dist\oracle_to_s3_uploader.exe ^
+    -q table_query.sql ^
+    -d "|" ^
+    -e ^
+    -b pythonuploadtest1 ^
+    -k oracle_table_export ^
+    -r ^
+    -p ^
+    -s
+</code></pre>
+
+<p>Executing <code>test.bat</code>:</p>
+
+<pre><code>c:\Python35-32\PROJECTS\Ora2S3&gt;dist\oracle_to_s3_uploader.exe   -q table_query.sql      -d "|"  -e      -b pythonuploadtest1       -k oracle_table_export  -r      -p      -s
+Uploading results of "table_query.sql" to existing bucket "pythonuploadtest1"
+Dumping data to: c:\Python35-32\PROJECTS\Ora2S3\data_dump\table_query\pythonuploadtest1\oracle_table_export.20160405_235310.gz
+1 chunk 10.0 GB [8.95 sec]
+2 chunk 5.94 GB [5.37 sec]
+Uncompressed data size: 15.94 GB
+Compressed data size: 63.39 MB
+Upload complete (17.58 sec).
+Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/pythonuploadtest1/oracle_table_export.gz
+</code></pre>
+
+<h4>
+<a id="test-query" class="anchor" href="#test-query" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test query</h4>
+
+<h3>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h3>
+
+<ul>
+<li><code>git clone https://github.com/alexbuz/CSV_Loader_For_Redshift</code></li>
+<li>
+<a href="https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/archive/master.zip">Master Release</a> -- <code>csv_loader_for_redshift 0.1.0</code>
+</li>
+</ul>
+
+<h1>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FAQ</h1>
+
+<h4>
+<a id="can-it-load-oracle-data-to-amazon-s3-file" class="anchor" href="#can-it-load-oracle-data-to-amazon-s3-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can it load Oracle data to Amazon S3 file?</h4>
+
+<p>Yes, it is the main purpose of this tool.</p>
+
+<h4>
+<a id="can-developers-integrate-oracle_to_s3_data_uploader-into-their-etl-pipelines" class="anchor" href="#can-developers-integrate-oracle_to_s3_data_uploader-into-their-etl-pipelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can developers integrate <code>Oracle_To_S3_Data_Uploader</code> into their ETL pipelines?</h4>
+
+<p>Yes. Assuming they are doing it on OS Windows.</p>
+
+<h4>
+<a id="how-fast-is-data-upload-using-csv-loader-for-redshift" class="anchor" href="#how-fast-is-data-upload-using-csv-loader-for-redshift" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How fast is data upload using <code>CSV Loader for Redshift</code>?</h4>
+
+<p>As fast as any implementation of multi-part load using Python and boto.</p>
+
+<h4>
+<a id="how-to-inscease-upload-speed" class="anchor" href="#how-to-inscease-upload-speed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to inscease upload speed?</h4>
+
+<p>Input data stream is getting compressed before upload to S3. So not much could be done here.
+You may want to run it closer to source or target for better performance.</p>
+
+<h4>
+<a id="what-are-the-other-ways-to-move-large-amounts-of-data-from-oracle-to-s3" class="anchor" href="#what-are-the-other-ways-to-move-large-amounts-of-data-from-oracle-to-s3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What are the other ways to move large amounts of data from Oracle to S3?</h4>
+
+<p>You can write a sqoop script that can be scheduled as an 'EMR Activity' under Data Pipeline.</p>
+
+<h4>
+<a id="does-it-create-temporary-data-file-to-facilitate-data-load-to-s3" class="anchor" href="#does-it-create-temporary-data-file-to-facilitate-data-load-to-s3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Does it create temporary data file to facilitate data load to S3?</h4>
+
+<p>No</p>
+
+<h4>
+<a id="can-i-log-transfered-data-for-analysis" class="anchor" href="#can-i-log-transfered-data-for-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can I log transfered data for analysis?</h4>
+
+<p>Yes, Use <code>-s, --create_data_dump</code> to dump streamed data.</p>
+
+<h4>
+<a id="is-there-an-option-to-compress-input-csv-file-before-upload" class="anchor" href="#is-there-an-option-to-compress-input-csv-file-before-upload" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Is there an option to compress input CSV file before upload?</h4>
+
+<p>Yes. Use <code>-z</code> or <code>--gzip_source_file</code> argument so the tool does compression for you.</p>
+
+<h4>
+<a id="explain-first-step-of-data-transfer" class="anchor" href="#explain-first-step-of-data-transfer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explain first step of data transfer?</h4>
+
+<p>The query file you provided is used to select data form target Oracle server.
+Stream is compressed before load to S3.</p>
+
+<h4>
+<a id="explain-second-step-of-data-transfer" class="anchor" href="#explain-second-step-of-data-transfer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explain second step of data transfer?</h4>
+
+<p>Compressed data is getting uploaded to S3 using multipart upload.</p>
+
+<h4>
+<a id="what-technology-was-used-to-create-this-tool" class="anchor" href="#what-technology-was-used-to-create-this-tool" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What technology was used to create this tool</h4>
+
+<p>I used SQL<em>Plus, Python, Boto to write it.
+Boto is used to upload file to S3. 
+SQL</em>Plus is used to spool data to compressor pipe.</p>
+
+<h4>
+<a id="where-are-the-sources" class="anchor" href="#where-are-the-sources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Where are the sources?</h4>
+
+<p>Please, contact me for sources.</p>
+
+<h4>
+<a id="can-you-modify-functionality-and-add-features" class="anchor" href="#can-you-modify-functionality-and-add-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can you modify functionality and add features?</h4>
+
+<p>Yes, please, ask me for new features.</p>
+
+<h4>
+<a id="what-other-aws-tools-youve-created" class="anchor" href="#what-other-aws-tools-youve-created" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What other AWS tools you've created?</h4>
+
+<ul>
+<li>
+<a href="https://github.com/alexbuz/CSV_Loader_For_Redshift/blob/master/README.md">CSV_Loader_For_Redshift</a> - Append CSV data to Amazon-Redshift from Windows.</li>
+<li>
+<a href="https://github.com/alexbuz/S3_Sanity_Check/blob/master/README.md">S3_Sanity_Check</a> - let's you <code>ping</code> Amazon-S3 bucket to see if it's publicly readable.</li>
+<li>
+<a href="https://github.com/alexbuz/EC2_Metrics_Plotter/blob/master/README.md">EC2_Metrics_Plotter</a> - plots any CloudWatch EC2 instance  metric stats.</li>
+<li>
+<a href="https://github.com/alexbuz/S3_File_Uploader/blob/master/README.md">S3_File_Uploader</a> - uploads file from Windows to S3.</li>
+</ul>
+
+<h4>
+<a id="do-you-have-any-aws-certifications" class="anchor" href="#do-you-have-any-aws-certifications" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Do you have any AWS Certifications?</h4>
+
+<p>Yes, <a href="https://raw.githubusercontent.com/alexbuz/FAQs/master/images/AWS_Ceritied_Developer_Associate.png">AWS Certified Developer (Associate)</a></p>
+
+<h4>
+<a id="can-you-create-similarcustom-data-tool-for-our-business" class="anchor" href="#can-you-create-similarcustom-data-tool-for-our-business" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can you create similar/custom data tool for our business?</h4>
+
+<p>Yes, you can PM me here or email at <code>alex_buz@yahoo.com</code>.
+I'll get back to you within hours.</p>
+
+<h3>
+<a id="links" class="anchor" href="#links" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Links</h3>
+
+<ul>
+<li><a href="https://github.com/alexbuz/FAQs/blob/master/README.md">Employment FAQ</a></li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Oracle to s3 data uploader maintained by <a href="https://github.com/alexbuz">alexbuz</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
