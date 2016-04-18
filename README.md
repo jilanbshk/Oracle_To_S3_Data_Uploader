@@ -138,7 +138,6 @@ Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_
 ```
 
 
-![Test results](https://raw.githubusercontent.com/alexbuz/Oracle_To_S3_Data_Uploader/master/dist-64bit/ora_to_s3_upload.png "Test Results")
 
 ###Download
 * `git clone https://github.com/alexbuz/Oracle_To_S3_Data_Uploader`
