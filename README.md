@@ -1,5 +1,5 @@
 # Oracle-to-S3 data uploader.
-    Ground to cloud data intefration tool.
+    Ground to cloud data integration tool.
     Let's you stream your Oracle table/query data to Amazon-S3 from Windows CLI (command line).
 
 
