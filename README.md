@@ -173,6 +173,11 @@ You can write a sqoop script that can be scheduled as an 'EMR Activity' under Da
 #### Does it create temporary data file to facilitate data load to S3?
 No
 
+#### Can I extract data from RDS Oracle to Amazon Redshift using this tool?
+Yes, but whatch where you invoke it. If you execute it outside of AWS you may get data charges.
+You should spawn OS Windows EC2 instance in the same Availability Zone with your DRS Oracle is residing.
+Login to new EC2 instance usig Remote Desktop, download `Oracle_To_S3_Data_Uploader` and run it in CLI window.
+
 #### Can I log transfered data for analysis?
 Yes, Use `-s, --create_data_dump` to dump streamed data.
 
