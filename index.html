@@ -256,6 +256,13 @@ You may want to run it closer to source or target for better performance.</p>
 <p>No</p>
 
 <h4>
+<a id="can-i-extract-data-from-rds-oracle-to-amazon-redshift-using-this-tool" class="anchor" href="#can-i-extract-data-from-rds-oracle-to-amazon-redshift-using-this-tool" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can I extract data from RDS Oracle to Amazon Redshift using this tool?</h4>
+
+<p>Yes, but whatch where you invoke it. If you execute it outside of AWS you may get data charges.
+You should spawn OS Windows EC2 instance in the same Availability Zone with your DRS Oracle is residing.
+Login to new EC2 instance usig Remote Desktop, download <code>Oracle_To_S3_Data_Uploader</code> and run it in CLI window.</p>
+
+<h4>
 <a id="can-i-log-transfered-data-for-analysis" class="anchor" href="#can-i-log-transfered-data-for-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can I log transfered data for analysis?</h4>
 
 <p>Yes, Use <code>-s, --create_data_dump</code> to dump streamed data.</p>
