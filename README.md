@@ -4,7 +4,7 @@
 
 
 Features:
- - Streams Oracle table data to Amazon-S3.
+ - Streams Oracle table (query) data to Amazon-S3.
  - No need to create CSV extracts before upload to S3.
  - Data stream is compressed while upload to S3.
  - No need for Amazon AWS CLI.
