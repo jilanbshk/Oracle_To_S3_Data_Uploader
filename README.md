@@ -1,9 +1,10 @@
 # Oracle-to-S3 data uploader.
-Let's you stream your Oracle table/query data to Amazon-S3 from Windows CLI (command line).
+    Ground to cloud data integration tool.
+    Let's you stream your Oracle table/query data to Amazon-S3 from Windows CLI (command line).
 
 
 Features:
- - Streams Oracle table data to Amazon-S3.
+ - Streams Oracle table (query) data to Amazon-S3.
  - No need to create CSV extracts before upload to S3.
  - Data stream is compressed while upload to S3.
  - No need for Amazon AWS CLI.
@@ -138,7 +139,6 @@ Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_
 ```
 
 
-![Test results](https://raw.githubusercontent.com/alexbuz/Oracle_To_S3_Data_Uploader/master/dist-64bit/ora_to_s3_upload.png "Test Results")
 
 ###Download
 * `git clone https://github.com/alexbuz/Oracle_To_S3_Data_Uploader`
@@ -172,6 +172,11 @@ You can write a sqoop script that can be scheduled as an 'EMR Activity' under Da
 
 #### Does it create temporary data file to facilitate data load to S3?
 No
+
+#### Can I extract data from RDS Oracle to Amazon S3 using this tool?
+Yes, but whatch where you invoke it. If you execute it outside of AWS you may get data charges.
+You should spawn OS Windows EC2 instance in the same Availability Zone with your DRS Oracle.
+Login to new EC2 instance usig Remote Desktop, download `Oracle_To_S3_Data_Uploader` and run it in CLI window.
 
 #### Can I log transfered data for analysis?
 Yes, Use `-s, --create_data_dump` to dump streamed data.
