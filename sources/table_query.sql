@@ -1,0 +1,1 @@
+SELECT * FROM c##test.crime_test;
