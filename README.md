@@ -8,9 +8,6 @@ Features:
  - No need to create CSV extracts before upload to S3.
  - Data stream is compressed while upload to S3.
  - No need for Amazon AWS CLI.
- - Works from your OS Windows desktop (command line).
- - It's executable (Oracle_To_S3_Uploader.exe)  - no need for Python install.
- - It's 64 bit - it will work on any vanilla DOS for 64-bit Windows.
  - AWS Access Keys are not passed as arguments. 
  - Written using Python/boto/PyInstaller.
 
@@ -194,7 +191,7 @@ Boto is used to upload file to S3.
 SQL*Plus is used to spool data to compressor pipe.
 
 #### Where are the sources?
-Please, contact me for sources.
+You can download sources [here](https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/tree/master/sources).
 
 #### Can you modify functionality and add features?
 Yes, please, ask me for new features.
