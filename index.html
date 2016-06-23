@@ -41,36 +41,27 @@ Let's you stream your Oracle table/query data to Amazon-S3 from Windows CLI (com
 <p>Features:</p>
 
 <ul>
-<li>Streams Oracle table data to Amazon-S3.</li>
+<li>Streams Oracle table (query) data to Amazon-S3.</li>
 <li>No need to create CSV extracts before upload to S3.</li>
 <li>Data stream is compressed while upload to S3.</li>
 <li>No need for Amazon AWS CLI.</li>
-<li>Works from your OS Windows desktop (command line).</li>
-<li>It's executable (Oracle_To_S3_Uploader.exe)  - no need for Python install.</li>
-<li>It's 64 bit - it will work on any vanilla DOS for 64-bit Windows.</li>
 <li>AWS Access Keys are not passed as arguments. </li>
 <li>Written using Python/boto/PyInstaller.</li>
 </ul>
 
 <h2>
-<a id="version" class="anchor" href="#version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version</h2>
+<a id="other-scripts" class="anchor" href="#other-scripts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other scripts</h2>
 
-<table>
-<thead>
-<tr>
-<th>OS</th>
-<th>Platform</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Windows</td>
-<td>64bit</td>
-<td>[1.2 beta]</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>
+<a href="https://github.com/alexbuz/Oracle-To-Redshift-Data-Loader/blob/master/README.md">Oracle -&gt; Redshift</a> data loader</li>
+<li>
+<a href="https://github.com/alexbuz/PostgreSQL_To_Redshift_Loader/blob/master/README.md">PostgreSQL -&gt; Redshift</a> data loader</li>
+<li>
+<a href="https://github.com/alexbuz/MySQL_To_Redshift_Loader/blob/master/README.md">MySQL -&gt; Redshift</a> data loader</li>
+<li>
+<a href="https://github.com/alexbuz/CSV_Loader_For_Redshift/blob/master/README.md">CSV -&gt; Redshift</a> data loader</li>
+</ul>
 
 <h2>
 <a id="purpose" class="anchor" href="#purpose" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Purpose</h2>
@@ -256,10 +247,10 @@ You may want to run it closer to source or target for better performance.</p>
 <p>No</p>
 
 <h4>
-<a id="can-i-extract-data-from-rds-oracle-to-amazon-redshift-using-this-tool" class="anchor" href="#can-i-extract-data-from-rds-oracle-to-amazon-redshift-using-this-tool" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can I extract data from RDS Oracle to Amazon Redshift using this tool?</h4>
+<a id="can-i-extract-data-from-rds-oracle-to-amazon-s3-using-this-tool" class="anchor" href="#can-i-extract-data-from-rds-oracle-to-amazon-s3-using-this-tool" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can I extract data from RDS Oracle to Amazon S3 using this tool?</h4>
 
 <p>Yes, but whatch where you invoke it. If you execute it outside of AWS you may get data charges.
-You should spawn OS Windows EC2 instance in the same Availability Zone with your DRS Oracle is residing.
+You should spawn OS Windows EC2 instance in the same Availability Zone with your DRS Oracle.
 Login to new EC2 instance usig Remote Desktop, download <code>Oracle_To_S3_Data_Uploader</code> and run it in CLI window.</p>
 
 <h4>
@@ -288,7 +279,7 @@ SQL</em>Plus is used to spool data to compressor pipe.</p>
 <h4>
 <a id="where-are-the-sources" class="anchor" href="#where-are-the-sources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Where are the sources?</h4>
 
-<p>Please, contact me for sources.</p>
+<p>You can download sources <a href="https://github.com/alexbuz/Oracle_To_S3_Data_Uploader/tree/master/sources">here</a>.</p>
 
 <h4>
 <a id="can-you-modify-functionality-and-add-features" class="anchor" href="#can-you-modify-functionality-and-add-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Can you modify functionality and add features?</h4>
