@@ -125,6 +125,17 @@ dist\oracle_to_s3_uploader.exe ^
 	-p ^
 	-s
 ```
+
+Make sure you can call sqllplus from command line 
+```C:\Users\alex_buz>sqlplus.exe 
+SQL*Plus: Release 12.1.0.2.0 Production on Sat Oct 29 09:24:43 2016
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name:
+
+```
+
 Executing `test.bat`:
 
 ```
@@ -155,6 +166,19 @@ Your PUBLIC upload is at: https://s3-us-west-2.amazonaws.com/test_bucket/oracle_
 #   
 #FAQ
 #  
+
+####I'm getting the error
+"""WindowsError: [Error2] System cannot find file specified"""
+Solution is to call sqlplus from command line to make sure it's in system path and tool can find it when it's opening data extract shell.
+```C:\Users\alex_buz>sqlplus.exe 
+SQL*Plus: Release 12.1.0.2.0 Production on Sat Oct 29 09:24:43 2016
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name:
+
+```
+
 #### Can it load Oracle data to Amazon S3 file?
 Yes, it is the main purpose of this tool.
 
