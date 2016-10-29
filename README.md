@@ -2,6 +2,8 @@
     Ground to cloud data integration tool.
     Let's you stream your Oracle table/query data to Amazon-S3 from Windows CLI (command line).
 
+NOTE: You need [Oracle Instant Client](http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html) in  order to use it
+sqlplus.exe has to be in system path
 
 Features:
  - Streams Oracle table (query) data to Amazon-S3.
