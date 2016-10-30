@@ -1,1 +1,1 @@
-SELECT * FROM c##test.crime_test;
+SELECT * FROM test2 WHERE rownum<100000
