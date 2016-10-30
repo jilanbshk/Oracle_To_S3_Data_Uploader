@@ -1,6 +1,6 @@
 """#############################################################################
 #Oracle-to-S3 Data Uploader (v1.2, beta, 04/05/2016 15:11:53) [64bit] 
-#Copyright (c): 2016 Alex Buzunov, All rights reserved.
+#Copyright (c): 2016 Alex Buzunov. Free to use, change or distribute.
 #Agreement: Use this tool at your own risk. Author is not liable for any damages 
 #           or losses related to the use of this software.
 ################################################################################
@@ -31,10 +31,7 @@ Usage:
 	Oracle data uploaded to S3 is always compressed (gzip).
 """
 
-#>type c:\tmp\data.csv| python file_upload.py
 import sys
-#data = sys.stdin.readlines()
-#print "Counted", len(data), "lines."
 
 import os, sys
 from pprint import pprint
@@ -136,15 +133,8 @@ END;
 
 """ % (qry[0:32000].replace("'","''"),qry[32000:64000].replace("'","''"),qry[64000:96000].replace("'","''"),qry[96000:128000].replace("'","''"),qry[128000:160000].replace("'","''"))
 	regexp=re.compile(r'([\w\_\:\(\)\d]+)')
-	#(r,status) = self.do_query(login, 'set serveroutput on echo on termout on feedback off\n%s'% q,0,regexp,1)
-	#pprint(r)
-	
-	#print t, col_key 
-	#sys.exit(1)
 
 	p1 = Popen(['echo', 'set serveroutput on echo on termout on feedback off\n%s' % q], stdout=PIPE,stderr=PIPE)
-	#cmd=['sqlplus', '-silent', 'c##test/scott@orcl12', '@query.sql']
-	#process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 	p2 = Popen([ r'C:\app\oracle12\product\12.1.0\dbhome_1\BIN\sqlplus.exe', "-s", 'c##test/scott@orcl12'], stdin=p1.stdout, stdout=PIPE,stderr=PIPE)
 	output=' '
 	status=0
@@ -153,7 +143,6 @@ END;
 		while output:
 			output = p2.stdout.readline().strip() #.decode("utf-8")
 			if output:
-				#print(output.decode("utf-8").split(':'))
 				cols.append(output.split(':')) 
 	
 	p1.wait()	
@@ -236,24 +225,20 @@ def sendStreamGz(bucket, s3_key, pipe, suffix='.gz'):
 			upload_to_s3(c)
 	else:
 		upload_to_s3(None)
-	#print('Compressed size: %s' %compressor.fileobj.tell())
-	#print(dir(compressor))
-	
+
 	return key
 	
 def get_ora_pipe():
-	
-	#in_qry= 'SELECT * FROM test2 WHERE rownum<1000';
+
 	in_qry=open(opt.ora_query_file, "r").read().strip().strip(';')
-	#qry='SELECT * FROM (%s)' % in_qry ;
+
 	cols=get_query_columns('', in_qry)
-	#pprint(cols)
+
 	col_str=('||\'%s\'||' % opt.ora_col_delim).join([c[0] for c in cols])
 	header_str=''
 	if opt.ora_add_header:
 		header_str='PROMPT '+ ('%s' % opt.ora_col_delim).join([c[0] for c in cols])
-	#print (col_str)
-	#e(0)	
+	
 	limit=''
 	if opt.ora_lame_duck>0:
 		limit='WHERE rownum<=%d' % opt.ora_lame_duck
@@ -266,10 +251,8 @@ def get_ora_pipe():
 	SELECT %s str FROM (%s) %s;
 	exit;
 	""" % (header_str,col_str, in_qry,limit)
-	#do_query(self,login, query, query_file=None, regexp=None, grp=None, spset='', qname=None):
-	
+
 	p1 = Popen(['echo', q], stdout=PIPE,stderr=PIPE)
-	#process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 
 	plus_loc=os.path.join(ORACLE_CLIENT_HOME,'bin','sqlplus.exe')
 	assert os.path.isfile(plus_loc), 'Cannot locate sqlplus.exe at\n%s' % ORACLE_CLIENT_HOME
@@ -290,38 +273,6 @@ def RepresentsInt(s):
         return True
     except ValueError:
         return False
-"""
-C:\Python35-32\PROJECTS\Ora2S3>python file_upload.py
-Connecting to S3...
-Public = True
-ReducedRedundancy = (False,)
-Traceback (most recent call last):
-  File "file_upload.py", line 89, in <module>
-    k.set_contents_from_stream(file_handle, cb=progress, reduced_redundancy=use_rr )
-  File "C:\Python27\lib\site-packages\boto-2.39.0-py2.7.egg\boto\s3\key.py", line 1095, in set_contents_from_stream
-    % provider.get_provider_name())
-boto.exception.BotoClientError: BotoClientError: s3 does not support chunked transfer
-set ORACLE_CLIENT_HOME=C:\app\oracle12\product\12.1.0\dbhome_1
-set ORACLE_LOGIN=c##test/scott@orcl12
-
-python oracle_to_s3_uploader.py -q table_query.sql -d "|" -e -b pythonuploadtest1 -k oracle_table_export.gz -r 
-
-c:\Python27\Scripts\pyinstaller.exe -y oracle_to_s3_uploader.py --log-level DEBUG --onefile 
-
-python PROJECTS\Ora2S3\oracle_to_s3_uploader.py -q table_query.sql -d "|" -e -b pythonuploadtest1 -k oracle_table_export -r -p
-
-
-cd c:\Python35-32\PROJECTS\Ora2S3
-dist\oracle_to_s3_uploader.exe -q table_query.sql -d "|" -e -b pythonuploadtest1 -k oracle_table_export -r -p
-Uploading results of "table_query.sql" to bucket: pythonuploadtest1
-1 chunk 10.0 GB
-2 chunk 5.94 GB
-Uncompressed data size: 15.94 GB
-Compressed data size: 63.39 MB
-Upload complete.
-
-"""	
-
 	
 if __name__ == "__main__":		
 	parser = OptionParser()
