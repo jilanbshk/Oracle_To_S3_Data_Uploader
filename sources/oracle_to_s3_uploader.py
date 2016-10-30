@@ -72,7 +72,6 @@ ORACLE_CLIENT_HOME = os.getenv('ORACLE_CLIENT_HOME')
 assert ORACLE_CLIENT_HOME, 'ORACLE_CLIENT_HOME is not set'
 
 bucket=None	
-#bucket_name= 'pythonuploadtest1' 
 s3_key_name=None
 use_rr=False,
 make_public=True
